@@ -58,12 +58,12 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/mostrartodo")
-	public ResponseEntity<ArrayList<UsuarioDTO>> mostrarTodo() {
-		ArrayList<UsuarioDTO> usuarios = usuarioServ.findAll();
+	public ResponseEntity<List<UsuarioDTO>> mostrarTodo() {
+		List<UsuarioDTO> usuarios = usuarioServ.findAll();
 		if (usuarios.isEmpty()) {
-			return new ResponseEntity<ArrayList<UsuarioDTO>>(usuarios, HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<UsuarioDTO>>(usuarios, HttpStatus.NO_CONTENT);
 		} else {
-			return new ResponseEntity<ArrayList<UsuarioDTO>>(usuarios, HttpStatus.ACCEPTED);
+			return new ResponseEntity<List<UsuarioDTO>>(usuarios, HttpStatus.ACCEPTED);
 		}
 	}
 

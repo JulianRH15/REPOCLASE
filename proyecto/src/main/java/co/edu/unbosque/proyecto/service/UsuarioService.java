@@ -1,6 +1,7 @@
 package co.edu.unbosque.proyecto.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -32,7 +33,7 @@ public class UsuarioService {
 
 	}
 
-	public ArrayList<UsuarioDTO> findAll() {
+	public List<UsuarioDTO> findAll() {
 		ArrayList<Usuario> entityList = (ArrayList<Usuario>) usuarioRepo.findAll();
 		ArrayList<UsuarioDTO> dtoList = new ArrayList<>();
 		entityList.forEach((entity) -> {
