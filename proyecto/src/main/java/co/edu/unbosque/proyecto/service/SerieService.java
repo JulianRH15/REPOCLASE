@@ -1,7 +1,7 @@
 package co.edu.unbosque.proyecto.service;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -33,7 +33,7 @@ public class SerieService {
 		}
 	}
 
-	public ArrayList<SerieDTO> findAll() {
+	public List<SerieDTO> findAll() {
 		ArrayList<Serie> entityList = (ArrayList<Serie>) serieRepo.findAll();
 		ArrayList<SerieDTO> dtoList = new ArrayList<>();
 		entityList.forEach((entity) -> {

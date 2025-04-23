@@ -1,6 +1,7 @@
 package co.edu.unbosque.proyecto.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,12 +54,12 @@ public class SerieController {
 	}
 	
 	@GetMapping("/mostrartodo") 
-	public ResponseEntity<ArrayList<SerieDTO>> mostrarTodo() {
-		ArrayList<SerieDTO > series = serieServ.findAll();
+	public ResponseEntity<List<SerieDTO>> mostrarTodo() {
+		List<SerieDTO > series = serieServ.findAll();
 		if(series.isEmpty()) {
-			return new ResponseEntity<ArrayList<SerieDTO>>(series, HttpStatus.NO_CONTENT); 
+			return new ResponseEntity<List<SerieDTO>>(series, HttpStatus.NO_CONTENT); 
 		}else {
-			return new ResponseEntity<ArrayList<SerieDTO>>(series, HttpStatus.ACCEPTED);
+			return new ResponseEntity<List<SerieDTO>>(series, HttpStatus.ACCEPTED);
 		}
 	}
 	
