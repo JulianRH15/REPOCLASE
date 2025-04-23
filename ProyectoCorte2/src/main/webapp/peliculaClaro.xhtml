@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type"
+		content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>NETFLIX</title>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" />
+
+<style type="text/css">
+    :root {
+        --netflix-red: #e50914;
+        --netflix-light-bg: #f8f9fa;
+        --netflix-card-bg: #ffffff;
+        --netflix-text: #212529;
+        --netflix-gray: #6c757d;
+        --netflix-light-gray: #e9ecef;
+    }
+
+    body {
+        background-color: var(--netflix-light-bg);
+        color: var(--netflix-text);
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        padding-top: 60px;
+    }
+
+    .navbar {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        padding: 0 45px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 60px;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .navbar-brand img {
+        height: 30px;
+        filter: brightness(0);
+    }
+
+    .nav-link {
+        color: var(--netflix-text) !important;
+        font-size: 14px;
+        margin-right: 15px;
+        transition: all 0.3s;
+        padding: 10px 0;
+        font-weight: 500;
+    }
+
+    .nav-link:hover {
+        color: var(--netflix-red) !important;
+    }
+
+    #carouselExampleCaptions {
+        height: 70vh;
+        margin-top: 0;
+    }
+
+    .carousel-item {
+        height: 100%;
+        background-color: var(--netflix-light-bg);
+    }
+
+    .video-container {
+        position: relative;
+        width: 90%;
+        height: 90%;
+        margin: 0 auto;
+        padding-bottom: 50.625%;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .video-iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 8px;
+    }
+
+    .carousel-caption {
+        bottom: 15%;
+        left: 8%;
+        right: auto;
+        width: 35%;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 8px;
+        pointer-events: none;
+        z-index: 2;
+        color: var(--netflix-text);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .carousel-caption h5 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: var(--netflix-red);
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        color: var(--netflix-text);
+    }
+
+    .carousel-caption small {
+        font-size: 0.8rem;
+        opacity: 0.8;
+        color: var(--netflix-gray);
+    }
+
+    .border-secondary {
+        border-color: var(--netflix-light-gray) !important;
+    }
+
+    .carousel-indicators {
+        display: none !important;
+    }
+
+    .social-icons a {
+        transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+        color: var(--netflix-red) !important;
+        transform: translateY(-2px);
+    }
+
+    .btn-netflix {
+        background-color: var(--netflix-red);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        padding: 8px 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-netflix:hover {
+        background-color: #f40612;
+        transform: scale(1.03);
+        box-shadow: 0 4px 8px rgba(229, 9, 20, 0.3);
+    }
+
+    /* Carousel controls */
+    .carousel-control-prev, .carousel-control-next {
+        width: 5%;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        height: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--netflix-red);
+        border: none;
+    }
+
+    .carousel-control-prev {
+        left: 20px;
+    }
+        
+    .carousel-control-next {
+        right: 20px;
+    }
+
+    .carousel-inner {
+        padding: 20px 0;
+    }
+
+    /* Card styles */
+    .card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        margin: 0 10px;
+        background-color: var(--netflix-card-bg);
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(229, 9, 20, 0.15);
+    }
+
+    .media-container {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .card-title {
+        color: var(--netflix-text);
+        font-weight: 600;
+    }
+
+    .card-text {
+        color: var(--netflix-gray);
+        font-size: 0.9rem;
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 5px 8px;
+    }
+
+    /* Footer styles */
+    footer.bg-black {
+        background-color: white !important;
+        color: var(--netflix-text) !important;
+        border-top: 1px solid var(--netflix-light-gray);
+    }
+
+    footer .text-white-50 {
+        color: var(--netflix-gray) !important;
+    }
+
+    footer a.text-white-50 {
+        color: var(--netflix-gray) !important;
+        transition: color 0.2s;
+    }
+
+    footer a.text-white-50:hover {
+        color: var(--netflix-red) !important;
+        text-decoration: none !important;
+    }
+
+    .theme-toggle {
+        background: none;
+        border: none;
+        color: var(--netflix-text);
+        font-size: 1.3rem;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+    }
+
+    .theme-toggle:hover {
+        background-color: rgba(0, 0, 0, 0.05);
+        transform: scale(1.1);
+    }
+
+    /* Estilos para el dropdown del formulario */
+    .dropdown-menu {
+        background-color: black;
+        border: 1px solid #ddd;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        padding: 20px;
+        width: 350px;
+        border-radius: 6px;
+    }
+
+    .dropdown-toggle::after {
+        margin-left: 8px;
+        border-top-color: #333;
+    }
+
+    /* Estilos para los elementos del formulario dentro del dropdown */
+    .dropdown-menu .form-control, 
+    .dropdown-menu .form-select {
+        background-color: #fff !important;
+        border: 1px solid #ced4da;
+        color: #495057 !important;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .dropdown-menu .form-control:focus, 
+    .dropdown-menu .form-select:focus {
+        border-color: #e50914;
+        box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25);
+    }
+
+    .dropdown-menu .form-label {
+        font-weight: 700; /* Texto en negrita */
+        color: #333;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .dropdown-menu .text-danger {
+        color: #e50914 !important;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .dropdown-menu .text-muted {
+        color: #6c757d !important;
+        font-size: 0.75rem;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* Estilos para los botones dentro del dropdown */
+    .dropdown-menu .btn-netflix {
+        background-color: #e50914;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        padding: 8px 16px;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-menu .btn-netflix:hover {
+        background-color: #f40612;
+        transform: scale(1.03);
+    }
+
+    .dropdown-menu .btn-outline-light {
+        border-color: #ddd;
+        color: #333;
+        background-color: transparent;
+    }
+
+    .dropdown-menu .btn-outline-light:hover {
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    /* Estilos para los mensajes de error */
+    .dropdown-menu .error-message {
+        color: #e50914;
+        font-size: 0.8rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* Ajustes para el calendario */
+    .dropdown-menu .ui-calendar {
+        width: 100%;
+    }
+
+    .dropdown-menu .ui-datepicker-trigger {
+        background-color: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+    }
+
+    @media (max-width: 992px) {
+        .carousel-caption {
+            width: 50%;
+            left: 5%;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .carousel-caption {
+            width: 70%;
+            left: 5%;
+            bottom: 10%;
+            padding: 15px;
+        }
+        
+        .carousel-caption h5 {
+            font-size: 1.5rem;
+        }
+        
+        .navbar {
+            padding: 0 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .carousel-caption {
+            width: 90%;
+            left: 5%;
+            right: 5%;
+            bottom: 5%;
+        }
+        
+        .video-container {
+            width: 95%;
+        }
+        
+        .dropdown-menu {
+            width: 300px;
+            padding: 15px;
+        }
+    }
+</style>
+</h:head>
+
+<h:body>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+				alt="Netflix Logo" />
+			</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon" />
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
+
+					<li class="nav-item"><a class="nav-link"
+						href="#{request.contextPath}/serieClaro.xhtml">Series</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="#{request.contextPath}/peliculaClaro.xhtml">Películas</a></li>
+						<h:button value="🌙" styleClass="theme-toggle btn p-0" outcome="pelicula"> </h:button>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<br></br>
+	<br></br>
+	<div class="dropdown mb-4">
+		<button class="btn btn-netflix dropdown-toggle" type="button"
+			id="dropdownPeliculaForm" data-bs-toggle="dropdown"
+			aria-expanded="false">
+			<i class="bi bi-plus-lg me-2"></i>Agregar Película
+		</button>
+
+
+		<div class="dropdown-menu p-4" aria-labelledby="dropdownPeliculaForm"
+			style="width: 350px;">
+			<h:form id="peliculaForm">
+				<h:messages globalOnly="true" styleClass="mb-3"
+					style="color: var(--netflix-red);" />
+
+				<div class="mb-3">
+					<h:outputLabel for="nombre" value="Nombre: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="nombre" value="#{PeliculaBean.nombre}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="El nombre es obligatorio">
+						<f:validateLength minimum="2" maximum="100"
+							validatorMessage="El nombre debe tener entre 2 y 100 caracteres" />
+					</h:inputText>
+					<h:message for="nombre" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="duracion" value="Duración (minutos): *"
+						styleClass="form-label text-white" />
+					<h:inputText id="duracion" value="#{PeliculaBean.duracion}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La duración es obligatoria">
+						<f:validateLongRange minimum="1" maximum="999"
+							validatorMessage="La duración debe ser un número positivo (1-999)" />
+					</h:inputText>
+					<h:message for="duracion" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="tipo" value="Tipo: *"
+						styleClass="form-label text-white" />
+					<h:selectOneMenu id="tipo" value="#{PeliculaBean.tipo}"
+						styleClass="form-select bg-dark text-white" required="true"
+						requiredMessage="Debe seleccionar un tipo">
+						<f:selectItem itemLabel="Seleccione un tipo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="Acción" itemValue="Acción" />
+						<f:selectItem itemLabel="Comedia" itemValue="Comedia" />
+						<f:selectItem itemLabel="Drama" itemValue="Drama" />
+						<f:selectItem itemLabel="Terror" itemValue="Terror" />
+						<f:selectItem itemLabel="Ciencia Ficción"
+							itemValue="Ciencia Ficción" />
+					</h:selectOneMenu>
+					<h:message for="tipo" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="fechaEstreno" value="Fecha Estreno: *"
+						styleClass="form-label text-white" />
+					<p:calendar id="fechaEstreno" value="#{PeliculaBean.fechaEstreno}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La fecha de estreno es obligatoria"
+						pattern="yyyy-MM-dd" locale="es" navigator="true"
+						yearRange="c-100:c+10" showOn="button" showButtonPanel="true">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</p:calendar>
+					<h:message for="fechaEstreno" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="descripcion" value="Descripción:"
+						styleClass="form-label text-white" />
+					<h:inputTextarea id="descripcion"
+						value="#{PeliculaBean.descripcion}"
+						styleClass="form-control bg-dark text-white" rows="3" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="edadRecomendada" value="Edad Recomendada: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="edadRecomendada"
+						value="#{PeliculaBean.edadRecomendada}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La edad recomendada es obligatoria">
+						<f:validateLongRange minimum="0" maximum="21"
+							validatorMessage="La edad debe ser entre 0 y 21 años" />
+					</h:inputText>
+					<h:message for="edadRecomendada" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="url" value="URL YouTube/Imagen: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="url" value="#{PeliculaBean.url}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La URL es obligatoria">
+
+					</h:inputText>
+					<h:message for="url" styleClass="text-danger small" />
+					<small class="text-muted">Ej:
+						https://www.youtube.com/watch?v=... </small>
+				</div>
+
+				<div class="d-flex justify-content-between">
+					<h:commandButton value="Guardar" action="#{PeliculaBean.guardar}"
+						styleClass="btn btn-netflix" />
+					<h:commandButton value="Limpiar"
+						action="#{PeliculaBean.prepararNuevoRegistro}"
+						styleClass="btn btn-outline-light" immediate="true" />
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+	<div class="container-fluid px-5 mb-5">
+		<div id="carouselPeliculas" class="carousel slide"
+			data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<ui:repeat value="#{PeliculaBean.getGruposDePeliculas(3)}"
+					var="grupo" varStatus="grupoStatus">
+					<div class="carousel-item #{grupoStatus.first ? 'active' : ''}">
+						<div class="row">
+							<ui:repeat value="#{grupo}" var="pelicula">
+								<div class="col-md-4 mb-4">
+									<div class="card h-100 bg-dark text-white border-0">
+
+										<div class="media-container">
+											<h:panelGroup
+												rendered="#{PeliculaBean.esUrlYoutube(pelicula.url)}">
+												<div class="ratio ratio-16x9">
+													<iframe
+														src="#{PeliculaBean.getEmbedUrlYoutube(pelicula.url)}"
+														frameborder="0"
+														allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+														allowfullscreen="true"></iframe>
+												</div>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{not PeliculaBean.esUrlYoutube(pelicula.url)}">
+												<img src="#{pelicula.url}" class="card-img-top"
+													alt="#{pelicula.nombre}"
+													style="height: 200px; object-fit: cover;" />
+											</h:panelGroup>
+										</div>
+
+										<div class="card-body">
+											<h5 class="card-title">#{pelicula.nombre}</h5>
+											<p class="card-text text-muted">ID: #{pelicula.id} |
+												#{pelicula.tipo} | #{pelicula.duracion} min</p>
+											<p class="card-text small">#{pelicula.descripcion}</p>
+											<div
+												class="d-flex justify-content-between align-items-center">
+												<span class="badge bg-danger">+#{pelicula.edadRecomendada}</span>
+												<div>
+													<h:commandButton
+														styleClass="btn btn-sm btn-outline-warning me-1"
+														action="#{PeliculaBean.cargarPelicula(pelicula)}">
+														<i class="bi bi-pencil"></i> Editar
+                                                </h:commandButton>
+
+													<h:form>
+													<ui:repeat value="#{PeliculaBean.listaPeliculas}"
+														var="pelicula">
+														<h:commandButton value="Eliminar"
+															action="#{PeliculaBean.eliminarPelicula(pelicula)}"
+															onclick="return confirm('¿Estás seguro de eliminar esta película?');">
+															<f:ajax execute="@form" render="peliculasList" />
+														</h:commandButton>
+													</ui:repeat>
+													</h:form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</ui:repeat>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselPeliculas" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Anterior</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselPeliculas" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Siguiente</span>
+			</button>
+		</div>
+	</div>
+
+	<button class="carousel-control-prev" type="button"
+		data-bs-target="#carouselPeliculas" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+			class="visually-hidden">Anterior</span>
+	</button>
+	<button class="carousel-control-next" type="button"
+		data-bs-target="#carouselPeliculas" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+			class="visually-hidden">Siguiente</span>
+	</button>
+
+
+	<div id="carouselExampleCaptions" class="carousel slide">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="0" class="active" aria-current="true"
+				aria-label="Slide 1" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="1" aria-label="Slide 2" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="2" aria-label="Slide 3" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="3" aria-label="Slide 4" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="4" aria-label="Slide 5" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="5" aria-label="Slide 6" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="6" aria-label="Slide 7" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="7" aria-label="Slide 8" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="8" aria-label="Slide 9" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="9" aria-label="Slide 10" />
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-1"
+						src="https://www.youtube.com/embed/mgRRjFON4P8?enablejsapi=1&amp;loop=1&amp;playlist=mgRRjFON4P8&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Mi lista de deseos</h5>
+					<p>A voluntad de su difunta madre (Connie Britton), una joven
+						(Sofia Carson) tiene que cumplir los deseos de una lista que
+						escribió en su adolescencia, lo que la lleva a emprender un viaje
+						de autodescubrimiento. En este complejo proceso, se enfrenta a su
+						duelo y encuentra el valor necesario para volver a disfrutar
+						plenamente de la vida.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-2"
+						src="https://www.youtube.com/embed/n3YkEva36gs?enablejsapi=1&amp;loop=1&amp;playlist=n3YkEva36gs&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Contraataque</h5>
+					<p>Tras rescatar a dos rehenes y hacerse de un nuevo enemigo,
+						el capitán Guerrero y su escuadrón de élite se enfrentan a la
+						emboscada de un despiadado cártel.</p>
+				</div>
+			</div>
+
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-3"
+						src="https://www.youtube.com/embed/KIh41AbHzxo?enablejsapi=1&amp;loop=1&amp;playlist=KIh41AbHzxo&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Estado eléctrico</h5>
+					<p>Tras la guerra con los robots, no quedan muchas
+						alternativas. «Estado eléctrico» cuenta con las actuaciones de
+						Millie Bobby Brown, Chris Pratt y Stanley Tucci y la dirección de
+						los hermanos Russo.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-4"
+						src="https://www.youtube.com/embed/GKWBZTxR0ds?enablejsapi=1&amp;loop=1&amp;playlist=GKWBZTxR0ds&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Medusa</h5>
+					<p>Luego de sufrir un grave accidente que la hizo perder la
+						memoria, Bárbara se da cuenta, con la ayuda del detective Danger,
+						de que su vida está llena de más misterios de los que imaginaba y
+						que no puede confiar ni en su propia familia. Grabada en la
+						hermosa ciudad de Barranquilla y protagonizada por Juana Acosta,
+						Manolo Cardona, Sebastián Martínez, Carlos Torres, Mabel Moreno y
+						Diego Trujillo.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-5"
+						src="https://www.youtube.com/embed/Y5fbyh_xPXo?enablejsapi=1&amp;loop=1&amp;playlist=Y5fbyh_xPXo&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>El Eternauta</h5>
+					<p>Tras una nevada mortal que mata a millones de personas, Juan
+						Salvo y un grupo de supervivientes luchan contra una amenaza
+						alienígena controlada por una fuerza invisible. Basada en la
+						icónica novela gráfica, El Eternauta.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-6"
+						src="https://www.youtube.com/embed/tmsAP8LukdM?enablejsapi=1&amp;loop=1&amp;playlist=tmsAP8LukdM&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>La cita perfecta</h5>
+					<p>Brooks Rattigan (Noah Centineo) necesita dinero para la
+						universidad. Con la idea de conseguirlo, crea una aplicación móvil
+						en la que vende un servicio único: ¡hacer el papel del novio
+						perfecto en cualquier ocasión!</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-7"
+						src="https://www.youtube.com/embed/HGqDzntgnZE?enablejsapi=1&amp;loop=1&amp;playlist=HGqDzntgnZE&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Rebel Ridge</h5>
+					<p>Un exmilitar se abre camino a través de una red de
+						corrupción en un pequeño pueblo cuando el intento de pagar la
+						fianza de su primo se convierte en un enfrentamiento violento con
+						el jefe de policía local. Él no comenzó la pelea, pero la
+						terminará.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-8"
+						src="https://www.youtube.com/embed/9Xtod7Nlsxk?enablejsapi=1&amp;loop=1&amp;playlist=9Xtod7Nlsxk&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Equipaje de mano</h5>
+					<p>Un joven agente de la Administración de Seguridad en el
+						Transporte (TSA) de EE. UU. lucha por burlar a un misterioso
+						viajante que lo chantajea para que un peligroso paquete pase los
+						controles y aborde un vuelo en Nochebuena. «Equipaje de mano»,
+						protagonizada por Taron Egerton, Sofia Carson y Jason Bateman.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-9"
+						src="https://www.youtube.com/embed/QFxl7FFv6lM?enablejsapi=1&amp;loop=1&amp;playlist=QFxl7FFv6lM&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Adolescencia</h5>
+					<p>Cuando un menor es acusado de un crimen, sus padres, un
+						detective y una terapeuta enfrentan un sinfín de interrogantes y
+						tratan de encontrar respuestas.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-10"
+						src="https://www.youtube.com/embed/Tc4UwKh2gho?enablejsapi=1&amp;loop=1&amp;playlist=Tc4UwKh2gho&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true"></iframe>
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>No te muevas</h5>
+					<p>Una mujer que se encuentra aislada en un bosque de
+						California tiene veinte minutos para escapar de un asesino serial
+						antes de que su cuerpo se paralice por completo.</p>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button"
+			data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="visually-hidden">Next</span>
+		</button>
+	</div>
+
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+	<br></br>
+
+
+	<br></br>
+	<br></br>
+	<br></br>
+
+
+
+	<footer class="bg-black text-white py-5 mt-5">
+		<div class="container">
+			<div class="mb-4">
+				<p class="text-white-50 mb-4">
+					¿Preguntas? Llama al <a class="text-white-50">01 800 917 1564</a>
+					(sin cargo)
+				</p>
+
+				<div class="social-icons mb-4">
+					<a href="https://www.facebook.com/NetflixLatino" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-facebook" style="font-size: 1.5rem;" />
+					</a> <a href="https://www.instagram.com/NetflixLat/" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-instagram" style="font-size: 1.5rem;" />
+					</a> <a href="https://twitter.com/NetflixLAT" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-twitter-x" style="font-size: 1.5rem;" />
+					</a> <a href="https://www.youtube.com/user/NetflixLAT" target="_blank"
+						rel="noopener noreferrer" class="text-white"> <i
+						class="bi bi-youtube" style="font-size: 1.5rem;" />
+					</a>
+				</div>
+
+				<div class="row">
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/node/412" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Preguntas
+									frecuentes</a></li>
+							<li class="mb-2"><a
+								href="https://ir.netflix.net/ir-overview/profile/default.aspx"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Relaciones con
+									inversionistas</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/notices" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Avisos legales</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a href="https://help.netflix.com/es"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Centro de ayuda</a></li>
+							<li class="mb-2"><a href="https://jobs.netflix.com/"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Empleo</a></li>
+							<li class="mb-2"><a
+								href="https://www.netflix.com/co/browse/genre/839338"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Solo en netflix</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a
+								href="https://www.netflix.com/gift-cards" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Tarjetas de
+									regalo</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/termsofuse" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Términos de uso</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/node/134094" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Información
+									corporativa</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a href="https://media.netflix.com/"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Prensa</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/privacy" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Privacidad</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/contactus" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Contáctanos</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="pt-3 border-top border-secondary">
+				<p class="text-white-50 small mb-0">© 1997-2025 Netflix, Inc.</p>
+			</div>
+		</div>
+	</footer>
+
+
+	<script type="text/javascript">
+		<![CDATA[
+			document.addEventListener('DOMContentLoaded', function() {
+			    const players = {};
+			    let currentActivePlayer = null;
+			    let carouselInitialized = false;
+
+			    // 1. Cargar API de YouTube
+			    function loadYouTubeAPI() {
+			        if (window.YT) return; // Si ya está cargada, no hacer nada
+			        
+			        const tag = document.createElement('script');
+			        tag.src = "https://www.youtube.com/iframe_api";
+			        const firstScriptTag = document.getElementsByTagName('script')[0];
+			        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			    }
+
+			   
+			 // Agrega esto en la función stopVideo
+			    function stopVideo(player) {
+			        if (player && player.h && player.h.id) {
+			            const iframe = document.getElementById(player.h.id);
+			            if (iframe) {
+			                iframe.src = iframe.src.replace('&autoplay=1', '') + '&autoplay=0';
+			            }
+			        }
+			        if (player && typeof player.stopVideo === 'function') {
+			            player.stopVideo();
+			        }
+			    }
+
+			    // 3. Iniciar un video específico
+			    function startVideo(player) {
+			        if (!player) return;
+			        
+			        try {
+			            player.unMute();
+			            player.seekTo(0);
+			            player.playVideo();
+			        } catch (e) {
+			            console.error("Error al iniciar video:", e);
+			            // Fallback: recargar el iframe si hay error
+			            const iframe = document.getElementById(player.h.id);
+			            if (iframe) {
+			                iframe.src += '&autoplay=1';
+			            }
+			        }
+			    }
+
+			    // 4. Cuando la API de YouTube está lista
+			    window.onYouTubeIframeAPIReady = function() {
+			        // Inicializar todos los reproductores
+			        document.querySelectorAll('.video-iframe').forEach((iframe, index) => {
+			            const videoId = iframe.id;
+			            
+			            players[videoId] = new YT.Player(videoId, {
+			                events: {
+			                    'onReady': function(event) {
+			                        // Todos los videos comienzan detenidos
+			                        event.target.mute();
+			                        event.target.stopVideo();
+			                        
+			                        // Solo el primer video se reproduce al cargar
+			                        if (index === 0) {
+			                            currentActivePlayer = event.target;
+			                            startVideo(event.target);
+			                        }
+			                    }
+			                }
+			            });
+			        });
+
+			        initCarousel();
+			    };
+
+			    // 5. Configurar el carrusel con control estricto
+			    function initCarousel() {
+			        const carousel = document.getElementById('carouselExampleCaptions');
+			        if (!carousel || carouselInitialized) return;
+			        
+			        const carouselInstance = new bootstrap.Carousel(carousel, {
+			            interval: false,
+			            wrap: true
+			        });
+
+			        // Manejar cambio de slide
+			        carousel.addEventListener('slid.bs.carousel', function() {
+			            // Detener completamente el video anterior
+			            if (currentActivePlayer) {
+			                stopVideo(currentActivePlayer);
+			            }
+			            
+			            // Iniciar el nuevo video
+			            const activeIframe = document.querySelector('.carousel-item.active .video-iframe');
+			            if (activeIframe && players[activeIframe.id]) {
+			                currentActivePlayer = players[activeIframe.id];
+			                startVideo(currentActivePlayer);
+			            }
+			        });
+
+			        carouselInitialized = true;
+			    }
+
+			    // Iniciar todo el proceso
+			    if (window.YT && YT.loaded) {
+			        window.onYouTubeIframeAPIReady();
+			    } else {
+			        loadYouTubeAPI();
+			        // Fallback para navegadores con problemas
+			        setTimeout(() => {
+			            if (!window.YT) {
+			                console.warn("YouTube API no cargó, usando fallback");
+			                const firstIframe = document.querySelector('.video-iframe');
+			                if (firstIframe) {
+			                    firstIframe.src += '&autoplay=1';
+			                }
+			            }
+			        }, 5000);
+			    }
+			});
+		]]>
+	</script>
+</h:body>
+</html>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type"
+		content="application/xhtml+xml; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>NETFLIX</title>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" />
+
+	<style type="text/css">
+:root {
+	--netflix-red: #e50914;
+	--netflix-dark: #141414;
+	--netflix-gray: #303030;
+}
+
+body {
+	background-color: var(--netflix-dark);
+	color: white;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	padding-top: 60px;
+}
+
+.navbar {
+	background-color: rgba(0, 0, 0, 0.9) !important;
+	padding: 0 45px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	height: 60px;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+}
+
+.navbar-brand img {
+	height: 30px;
+}
+
+.nav-link {
+	color: white !important;
+	font-size: 14px;
+	margin-right: 15px;
+	transition: color 0.3s;
+	padding: 10px 0;
+}
+
+.nav-link:hover {
+	color: #b3b3b3 !important;
+}
+
+#carouselExampleCaptions {
+	height: 70vh;
+	margin-top: 0;
+}
+
+.carousel-item {
+	height: 100%;
+	background-color: #000;
+}
+
+.video-container {
+	position: relative;
+	width: 90%;
+	height: 90%;
+	margin: 0 auto;
+	padding-bottom: 50.625%;
+	overflow: hidden;
+}
+
+.video-iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+
+.carousel-caption {
+	bottom: 15%;
+	left: 8%;
+	right: auto;
+	width: 35%;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 15px;
+	border-radius: 6px;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.carousel-caption h5 {
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.carousel-caption p {
+	font-size: 1rem;
+	margin-bottom: 8px;
+}
+
+.carousel-caption small {
+	font-size: 0.8rem;
+	opacity: 0.8;
+}
+
+footer a {
+	transition: color 0.3s ease;
+	font-size: 0.9rem;
+}
+
+footer a:hover {
+	color: white !important;
+	text-decoration: underline !important;
+}
+
+.border-secondary {
+	border-color: #333 !important;
+}
+
+.carousel-indicators {
+	display: none !important;
+}
+
+.social-icons a:hover {
+	opacity: 0.8;
+}
+
+.btn-netflix {
+	background-color: var(--netflix-red);
+	color: white;
+	border: none;
+	border-radius: 4px;
+	font-weight: 500;
+	padding: 8px 16px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	transition: all 0.2s ease;
+}
+
+.btn-netflix:hover {
+	background-color: #f40612;
+	transform: scale(1.03);
+}
+
+.dropdown-toggle::after {
+	margin-left: 8px;
+}
+
+/* Estilo para el dropdown */
+.dropdown-menu {
+	background-color: var(--netflix-dark);
+	border: 1px solid var(--netflix-gray);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+	color: white;
+}
+
+.dropdown-item:hover {
+	background-color: var(--netflix-red);
+}
+
+/* Mejoras para los inputs del formulario */
+.form-control, .form-select {
+	background-color: var(--netflix-gray) !important;
+	border: 1px solid #444;
+	color: white !important;
+}
+
+.form-control:focus, .form-select:focus {
+	border-color: var(--netflix-red);
+	box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25);
+}
+
+.form-label {
+	font-weight: 500;
+}
+
+.carousel-control-prev, .carousel-control-next {
+	width: 5%;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+	height: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+    left: 20px; 
+}
+    
+.carousel-control-next {
+    right: 20px; 
+}
+
+.carousel-inner {
+	padding: 20px 0;
+}
+
+.carousel-item {
+	transition: transform 0.6s ease-in-out;
+}
+
+.card {
+	transition: transform 0.3s;
+	margin: 0 10px;
+}
+
+.card:hover {
+	transform: scale(1.03);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.media-container {
+	position: relative;
+	overflow: hidden;
+}
+
+.card:hover .media-container iframe {
+	transform: scale(1.03);
+}
+
+.ratio-16x9 {
+	--bs-aspect-ratio: 56.25%; /* 16:9 ratio */
+}
+
+/* Efecto hover para toda la tarjeta */
+.card {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	cursor: pointer;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(229, 9, 20, 0.3);
+}
+</style>
+</h:head>
+
+<h:body>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"> <img
+				src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
+				alt="Netflix Logo" />
+			</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon" />
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav me-auto">
+
+					<li class="nav-item"><a class="nav-link"
+						href="#{request.contextPath}/serie.xhtml">Series</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="#{request.contextPath}/pelicula.xhtml">Películas</a></li>
+						<h:button value="🌙" styleClass="theme-toggle btn p-0" outcome="serieClaro"> </h:button>
+				</ul>
+
+			</div>
+		</div>
+	</nav>
+
+	<br></br>
+	<br></br>
+	<div class="dropdown mb-4">
+		<button class="btn btn-netflix dropdown-toggle" type="button"
+			id="dropdownSerieForm" data-bs-toggle="dropdown"
+			aria-expanded="false">
+			<i class="bi bi-plus-lg me-2"></i>Agregar Serie
+		</button>
+
+		<div class="dropdown-menu p-4" aria-labelledby="dropdownSerieForm"
+			style="width: 350px;">
+			<h:form id="serieForm">
+				<h:messages globalOnly="true" styleClass="mb-3"
+					style="color: var(--netflix-red);" />
+
+				<div class="mb-3">
+					<h:outputLabel for="nombre" value="Nombre: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="nombre" value="#{SerieBean.nombre}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="El nombre es obligatorio">
+						<f:validateLength minimum="2" maximum="100"
+							validatorMessage="El nombre debe tener entre 2 y 100 caracteres" />
+					</h:inputText>
+					<h:message for="nombre" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="duracionCapitulo"
+						value="Duración por capítulo (min): *"
+						styleClass="form-label text-white" />
+					<h:inputText id="duracionCapitulo"
+						value="#{SerieBean.duracionCapitulo}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La duración es obligatoria">
+						<f:validateLongRange minimum="1" maximum="999"
+							validatorMessage="La duración debe ser entre 1 y 999 minutos" />
+					</h:inputText>
+					<h:message for="duracionCapitulo" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="cantidadCapitulo"
+						value="Cantidad de capítulos: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="cantidadCapitulo"
+						value="#{SerieBean.cantidadCapitulo}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La cantidad es obligatoria">
+						<f:validateLongRange minimum="1" maximum="999"
+							validatorMessage="Debe tener entre 1 y 999 capítulos" />
+					</h:inputText>
+					<h:message for="cantidadCapitulo" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="tipo" value="Tipo: *"
+						styleClass="form-label text-white" />
+					<h:selectOneMenu id="tipo" value="#{SerieBean.tipo}"
+						styleClass="form-select bg-dark text-white" required="true"
+						requiredMessage="Debe seleccionar un tipo">
+						<f:selectItem itemLabel="Seleccione un tipo" itemValue=""
+							noSelectionOption="true" />
+						<f:selectItem itemLabel="Acción" itemValue="Acción" />
+						<f:selectItem itemLabel="Comedia" itemValue="Comedia" />
+						<f:selectItem itemLabel="Drama" itemValue="Drama" />
+						<f:selectItem itemLabel="Terror" itemValue="Terror" />
+						<f:selectItem itemLabel="Ciencia Ficción"
+							itemValue="Ciencia Ficción" />
+						<f:selectItem itemLabel="Animación" itemValue="Animación" />
+						<f:selectItem itemLabel="Documental" itemValue="Documental" />
+					</h:selectOneMenu>
+					<h:message for="tipo" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="fechaEstreno" value="Fecha Estreno: *"
+						styleClass="form-label text-white" />
+					<p:calendar id="fechaEstreno"
+						value="#{SerieBean.fechaEstrenoAsDate}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La fecha de estreno es obligatoria"
+						pattern="yyyy-MM-dd" locale="es" navigator="true"
+						yearRange="c-100:c+10" showOn="button" showButtonPanel="true">
+						<f:convertDateTime pattern="yyyy-MM-dd" />
+					</p:calendar>
+					<h:message for="fechaEstreno" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="descripcion" value="Descripción:"
+						styleClass="form-label text-white" />
+					<h:inputTextarea id="descripcion" value="#{SerieBean.descripcion}"
+						styleClass="form-control bg-dark text-white" rows="3" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="edadRecomendada" value="Edad Recomendada: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="edadRecomendada"
+						value="#{SerieBean.edadRecomendada}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La edad recomendada es obligatoria">
+						<f:validateLongRange minimum="0" maximum="21"
+							validatorMessage="La edad debe ser entre 0 y 21 años" />
+					</h:inputText>
+					<h:message for="edadRecomendada" styleClass="text-danger small" />
+				</div>
+
+				<div class="mb-3">
+					<h:outputLabel for="url" value="URL YouTube/Imagen: *"
+						styleClass="form-label text-white" />
+					<h:inputText id="url" value="#{SerieBean.url}"
+						styleClass="form-control bg-dark text-white" required="true"
+						requiredMessage="La URL es obligatoria">
+					</h:inputText>
+					<h:message for="url" styleClass="text-danger small" />
+					<small class="text-muted">Ej:
+						https://www.youtube.com/watch?v=... </small>
+				</div>
+
+				<div class="d-flex justify-content-between">
+					<h:commandButton value="Guardar" action="#{SerieBean.guardar}"
+						styleClass="btn btn-netflix" />
+					<h:commandButton value="Limpiar"
+						action="#{SerieBean.prepararNuevoRegistro}"
+						styleClass="btn btn-outline-light" immediate="true" />
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+	<div class="container-fluid px-5 mb-5">
+		<div id="carouselSeries" class="carousel slide"
+			data-bs-ride="carousel">
+			<div class="carousel-inner">
+				<ui:repeat value="#{SerieBean.getGruposDeSeries(3)}" var="grupo"
+					varStatus="grupoStatus">
+					<div class="carousel-item #{grupoStatus.first ? 'active' : ''}">
+						<div class="row">
+							<ui:repeat value="#{grupo}" var="serie">
+								<div class="col-md-4 mb-4">
+									<div class="card h-100 bg-dark text-white border-0">
+										<!-- Contenedor para video o imagen -->
+										<div class="media-container">
+											<h:panelGroup rendered="#{SerieBean.esUrlYoutube(serie.url)}">
+												<div class="ratio ratio-16x9">
+													<iframe src="#{SerieBean.getEmbedUrlYoutube(serie.url)}"
+														frameborder="0"
+														allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+														allowfullscreen="true"></iframe>
+												</div>
+											</h:panelGroup>
+											<h:panelGroup
+												rendered="#{not SerieBean.esUrlYoutube(serie.url)}">
+												<img src="#{serie.url}" class="card-img-top"
+													alt="#{serie.nombre}"
+													style="height: 200px; object-fit: cover;" />
+											</h:panelGroup>
+										</div>
+
+										<div class="card-body">
+											<h5 class="card-title">#{serie.nombre}</h5>
+											<p class="card-text text-muted">ID: #{serie.id} |
+												#{serie.tipo} | #{serie.duracionCapitulo} min/cap |
+												#{serie.cantidadCapitulo} caps</p>
+											<p class="card-text small">#{serie.descripcion}</p>
+											<div
+												class="d-flex justify-content-between align-items-center">
+												<span class="badge bg-danger">+#{serie.edadRecomendada}</span>
+												<div>
+													<h:commandButton
+														styleClass="btn btn-sm btn-outline-warning me-1"
+														action="#{SerieBean.cargarSerie(serie)}">
+														<i class="bi bi-pencil"></i> Editar
+                                                </h:commandButton>
+
+													<h:form>
+													<ui:repeat value="#{SerieBean.listaSeries}"
+														var="serie">
+														<h:commandButton value="Eliminar"
+															action="#{SerieBean.eliminarSerie(serie)}"
+															onclick="return confirm('¿Estás seguro de eliminar esta película?');">
+															<f:ajax execute="@form" render="serieList" />
+														</h:commandButton>
+													</ui:repeat>
+													</h:form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</ui:repeat>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+
+			<button class="carousel-control-prev" type="button"
+				data-bs-target="#carouselSeries" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Anterior</span>
+			</button>
+			<button class="carousel-control-next" type="button"
+				data-bs-target="#carouselSeries" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Siguiente</span>
+			</button>
+		</div>
+	</div>
+
+
+	<div id="carouselExampleCaptions" class="carousel slide">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="0" class="active" aria-current="true"
+				aria-label="Slide 1" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="1" aria-label="Slide 2" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="2" aria-label="Slide 3" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="3" aria-label="Slide 4" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="4" aria-label="Slide 5" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="5" aria-label="Slide 6" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="6" aria-label="Slide 7" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="7" aria-label="Slide 8" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="8" aria-label="Slide 9" />
+			<button type="button" data-bs-target="#carouselExampleCaptions"
+				data-bs-slide-to="9" aria-label="Slide 10" />
+		</div>
+
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-1"
+						src="https://www.youtube.com/embed/MFc3RIu2p1E?enablejsapi=1&amp;loop=1&amp;playlist=MFc3RIu2p1E&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Cuando el teléfono suena</h5>
+					<p>La llamada de un secuestrador sacude el tenso matrimonio de
+						un politico con su esposa que no puede hablar.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-2"
+						src="https://www.youtube.com/embed/FDNL85g6dzM?enablejsapi=1&amp;loop=1&amp;playlist=FDNL85g6dzM&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Si la vida te da mandarinas</h5>
+					<p>Geum-myeong tiene la oportunidad de estudiar en Japón, lo
+						que la hace soñar en grande. Ae-sun y Gwan-sil deben tomar una
+						decisión difícil</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-3"
+						src="https://www.youtube.com/embed/GF1WSqVJySE?enablejsapi=1&amp;loop=1&amp;playlist=GF1WSqVJySE&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Formula 1: Drive to survive</h5>
+					<p>Pilotos, directores y escuderías de la Formula 1 aceleran a
+						fondo dentro y fuera de la pista. El podio tiene tres lugares,
+						pero la meta es una; ganar</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-4"
+						src="https://www.youtube.com/embed/6YD0viMgZpg?enablejsapi=1&amp;loop=1&amp;playlist=6YD0viMgZpg&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>You</h5>
+					<p>En esta oscura intriga psicológica, un hombre se obsesiona
+						por amor... y cruza todos los límites</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-5"
+						src="https://www.youtube.com/embed/9g6NHT7bA9A?enablejsapi=1&amp;loop=1&amp;playlist=9g6NHT7bA9A&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Devil May Cry</h5>
+					<p>Ante la amenaza de un misterioso villano de abrir las
+						puertas del infierno, un cazador de demonios endiabladamente guapo
+						podría ser la mejor opción para salvar el mundo</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-6"
+						src="https://www.youtube.com/embed/_9eS3pimWMA?enablejsapi=1&amp;loop=1&amp;playlist=_9eS3pimWMA&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Manual para residentes</h5>
+					<p>Los residentes de Ginecobstetricia de un hospital lidian con
+						el caos laboral y personal mientras intentan convertirse en
+						médicos excepcionales</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-7"
+						src="https://www.youtube.com/embed/KeD4AqVMuHE?enablejsapi=1&amp;loop=1&amp;playlist=KeD4AqVMuHE&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>El verano en que Hikaru murió</h5>
+					<p>Es una historia sobre dos amigos adolescentes que viven en
+						un pueblo rural de Japón y se enfrentan a una transformación en su
+						relación.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-8"
+						src="https://www.youtube.com/embed/klIcT2VrGhc?enablejsapi=1&amp;loop=1&amp;playlist=klIcT2VrGhc&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Revelación</h5>
+					<p>En este thriller, Ry Jun-yeol interpreta a un pastor
+						obsesionado por revelaciones divinas que se embarca en la oscura
+						misión de atrapar a un secuestrador de niños</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-9"
+						src="https://www.youtube.com/embed/fGDmBhNkClY?enablejsapi=1&amp;loop=1&amp;playlist=fGDmBhNkClY&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Spirit Crossing</h5>
+					<p>Viaja a una tierra entre mundos en «Spirit Crossing», un
+						juego cooperativo de simulación de vida en una aldea diseñado para
+						fomentar la amistad, la amabilidad y la convivencia en comunidad.</p>
+				</div>
+			</div>
+
+			<div class="carousel-item">
+				<div class="video-container">
+					<iframe class="video-iframe" id="video-10"
+						src="https://www.youtube.com/embed/Frub1fJ9BwE?enablejsapi=1&amp;loop=1&amp;playlist=Frub1fJ9BwE&amp;controls=0&amp;modestbranding=1&amp;rel=0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen="true" />
+				</div>
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Karma</h5>
+					<p>Un accidente fatal entrelaza las vidas de seis personas en
+						una historia cargada de karma y crimen en la que deben enfrentar
+						sus oscuras verdades y conexiones</p>
+				</div>
+			</div>
+		</div>
+
+		<button class="carousel-control-prev" type="button"
+			data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true" /> <span
+				class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button"
+			data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true" /> <span
+				class="visually-hidden">Next</span>
+		</button>
+	</div>
+
+	<br> </br>
+	<br> </br>
+	<br> </br>
+	<br> </br>
+	<br> </br>
+
+	<footer class="bg-black text-white py-5 mt-5">
+		<div class="container">
+			<div class="mb-4">
+				<p class="text-white-50 mb-4">
+					¿Preguntas? Llama al <a class="text-white-50">01 800 917 1564</a>
+					(sin cargo)
+				</p>
+
+				<div class="social-icons mb-4">
+					<a href="https://www.facebook.com/NetflixLatino" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-facebook" style="font-size: 1.5rem;" />
+					</a> <a href="https://www.instagram.com/NetflixLat/" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-instagram" style="font-size: 1.5rem;" />
+					</a> <a href="https://twitter.com/NetflixLAT" target="_blank"
+						rel="noopener noreferrer" class="text-white me-3"> <i
+						class="bi bi-twitter-x" style="font-size: 1.5rem;" />
+					</a> <a href="https://www.youtube.com/user/NetflixLAT" target="_blank"
+						rel="noopener noreferrer" class="text-white"> <i
+						class="bi bi-youtube" style="font-size: 1.5rem;" />
+					</a>
+				</div>
+
+				<div class="row">
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/node/412" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Preguntas
+									frecuentes</a></li>
+							<li class="mb-2"><a
+								href="https://ir.netflix.net/ir-overview/profile/default.aspx"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Relaciones con
+									inversionistas</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/notices" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Avisos legales</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a href="https://help.netflix.com/es"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Centro de ayuda</a></li>
+							<li class="mb-2"><a href="https://jobs.netflix.com/"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Empleo</a></li>
+							<li class="mb-2"><a
+								href="https://www.netflix.com/co/browse/genre/839338"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Solo en netflix</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a
+								href="https://www.netflix.com/gift-cards" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Tarjetas de
+									regalo</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/termsofuse" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Términos de uso</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/node/134094" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Información
+									corporativa</a></li>
+						</ul>
+					</div>
+					<div class="col-6 col-md-3 mb-3">
+						<ul class="list-unstyled">
+							<li class="mb-2"><a href="https://media.netflix.com/"
+								target="_blank" rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Prensa</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/legal/privacy" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Privacidad</a></li>
+							<li class="mb-2"><a
+								href="https://help.netflix.com/es/contactus" target="_blank"
+								rel="noopener noreferrer"
+								class="text-white-50 text-decoration-none">Contáctanos</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="pt-3 border-top border-secondary">
+				<p class="text-white-50 small mb-0">© 1997-2025 Netflix, Inc.</p>
+			</div>
+		</div>
+	</footer>
+
+<script type="text/javascript">
+		<![CDATA[
+			document.addEventListener('DOMContentLoaded', function() {
+			    const players = {};
+			    let currentActivePlayer = null;
+			    let carouselInitialized = false;
+
+			    // 1. Cargar API de YouTube
+			    function loadYouTubeAPI() {
+			        if (window.YT) return; // Si ya está cargada, no hacer nada
+			        
+			        const tag = document.createElement('script');
+			        tag.src = "https://www.youtube.com/iframe_api";
+			        const firstScriptTag = document.getElementsByTagName('script')[0];
+			        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			    }
+
+			   
+			 // Agrega esto en la función stopVideo
+			    function stopVideo(player) {
+			        if (player && player.h && player.h.id) {
+			            const iframe = document.getElementById(player.h.id);
+			            if (iframe) {
+			                iframe.src = iframe.src.replace('&autoplay=1', '') + '&autoplay=0';
+			            }
+			        }
+			        if (player && typeof player.stopVideo === 'function') {
+			            player.stopVideo();
+			        }
+			    }
+
+			    // 3. Iniciar un video específico
+			    function startVideo(player) {
+			        if (!player) return;
+			        
+			        try {
+			            player.unMute();
+			            player.seekTo(0);
+			            player.playVideo();
+			        } catch (e) {
+			            console.error("Error al iniciar video:", e);
+			            // Fallback: recargar el iframe si hay error
+			            const iframe = document.getElementById(player.h.id);
+			            if (iframe) {
+			                iframe.src += '&autoplay=1';
+			            }
+			        }
+			    }
+
+			    // 4. Cuando la API de YouTube está lista
+			    window.onYouTubeIframeAPIReady = function() {
+			        // Inicializar todos los reproductores
+			        document.querySelectorAll('.video-iframe').forEach((iframe, index) => {
+			            const videoId = iframe.id;
+			            
+			            players[videoId] = new YT.Player(videoId, {
+			                events: {
+			                    'onReady': function(event) {
+			                        // Todos los videos comienzan detenidos
+			                        event.target.mute();
+			                        event.target.stopVideo();
+			                        
+			                        // Solo el primer video se reproduce al cargar
+			                        if (index === 0) {
+			                            currentActivePlayer = event.target;
+			                            startVideo(event.target);
+			                        }
+			                    }
+			                }
+			            });
+			        });
+
+			        initCarousel();
+			    };
+
+			    // 5. Configurar el carrusel con control estricto
+			    function initCarousel() {
+			        const carousel = document.getElementById('carouselExampleCaptions');
+			        if (!carousel || carouselInitialized) return;
+			        
+			        const carouselInstance = new bootstrap.Carousel(carousel, {
+			            interval: false,
+			            wrap: true
+			        });
+
+			        // Manejar cambio de slide
+			        carousel.addEventListener('slid.bs.carousel', function() {
+			            // Detener completamente el video anterior
+			            if (currentActivePlayer) {
+			                stopVideo(currentActivePlayer);
+			            }
+			            
+			            // Iniciar el nuevo video
+			            const activeIframe = document.querySelector('.carousel-item.active .video-iframe');
+			            if (activeIframe && players[activeIframe.id]) {
+			                currentActivePlayer = players[activeIframe.id];
+			                startVideo(currentActivePlayer);
+			            }
+			        });
+
+			        carouselInitialized = true;
+			    }
+
+			    // Iniciar todo el proceso
+			    if (window.YT && YT.loaded) {
+			        window.onYouTubeIframeAPIReady();
+			    } else {
+			        loadYouTubeAPI();
+			        // Fallback para navegadores con problemas
+			        setTimeout(() => {
+			            if (!window.YT) {
+			                console.warn("YouTube API no cargó, usando fallback");
+			                const firstIframe = document.querySelector('.video-iframe');
+			                if (firstIframe) {
+			                    firstIframe.src += '&autoplay=1';
+			                }
+			            }
+			        }, 5000);
+			    }
+			});
+		]]>
+	</script>
+</h:body>
+</html>
+
+
