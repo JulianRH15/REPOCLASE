@@ -188,7 +188,7 @@ public class PeliculaBean implements Serializable {
 	        if (url.contains("v=")) {
 	            videoId = url.substring(url.indexOf("v=") + 2);
 	            if (videoId.contains("&")) {
-	                videoId = videoId.substring(0, videoId.indexOf("&"));
+	                videoId = videoId.substring(0, videoId.indexOf('&'));
 	            }
 	        } else if (url.contains("youtu.be/")) {
 	            videoId = url.substring(url.indexOf("youtu.be/") + 9);
