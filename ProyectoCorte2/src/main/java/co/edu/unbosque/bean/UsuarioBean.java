@@ -26,7 +26,7 @@ public class UsuarioBean implements Serializable {
 	private String fechaNacimiento;
 	private String correo;
 	private int documento;
-	private int index;
+	protected int index;
 	private LocalDate getFecha;
 	
 
