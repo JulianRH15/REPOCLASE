@@ -166,7 +166,7 @@ public class SerieBean implements Serializable {
         if (url.contains("v=")) {
             videoId = url.substring(url.indexOf("v=") + 2);
             if (videoId.contains("&")) {
-                videoId = videoId.substring(videoId.indexOf("."), videoId.indexOf("&"));
+                videoId = videoId.substring(videoId.indexOf('.'), videoId.indexOf("&"));
             }
         } else if (url.contains("youtu.be/")) {
             videoId = url.substring(url.indexOf("youtu.be/") + 9);
