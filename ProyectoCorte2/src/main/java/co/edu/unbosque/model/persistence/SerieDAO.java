@@ -1,11 +1,12 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.unbosque.model.SerieDTO;
 
 public class SerieDAO implements CRUDOperation<SerieDTO, SerieDTO>{
-	ArrayList<SerieDTO> listaSeries = new ArrayList<SerieDTO>();
+	List<SerieDTO> listaSeries = new ArrayList<SerieDTO>();
 
 	public SerieDAO() {
 		// TODO Auto-generated constructor stub
@@ -36,7 +37,7 @@ public class SerieDAO implements CRUDOperation<SerieDTO, SerieDTO>{
 	}
 
 	@Override
-	public ArrayList<SerieDTO> findAll(String url){
+	public List<SerieDTO> findAll(String url){
 		return listaSeries = ExternalHttpRequestHandler.getAllSeries(url);
 	}
 

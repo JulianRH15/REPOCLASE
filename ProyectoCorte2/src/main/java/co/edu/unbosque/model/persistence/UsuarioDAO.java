@@ -1,11 +1,12 @@
 package co.edu.unbosque.model.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import co.edu.unbosque.model.UsuarioDTO;
 
 public class UsuarioDAO implements CRUDOperation<UsuarioDTO, UsuarioDTO>{
-	static ArrayList<UsuarioDTO> listaUsuarios = new ArrayList<UsuarioDTO>();
+	static List<UsuarioDTO> listaUsuarios = new ArrayList<UsuarioDTO>();
 
 	public UsuarioDAO() {
 		// TODO Auto-generated constructor stub
@@ -36,7 +37,7 @@ public class UsuarioDAO implements CRUDOperation<UsuarioDTO, UsuarioDTO>{
 	}
 
 	@Override
-	public ArrayList<UsuarioDTO> findAll(String url){
+	public List<UsuarioDTO> findAll(String url){
 		return listaUsuarios = ExternalHttpRequestHandler.getAllUsuarios(url);
 	}
 

@@ -10,6 +10,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -95,7 +96,7 @@ public class ExternalHttpRequestHandler {
 
 		return respuesta.statusCode()+"\n" + respuesta.body();
 	}
-	public static ArrayList<UsuarioDTO> getAllUsuarios(String url) {
+	public static List<UsuarioDTO> getAllUsuarios(String url) {
 	    HttpRequest solicitud = HttpRequest.newBuilder().GET()
 	            .uri(URI.create(url)).build();
 	    HttpResponse<String> respuesta = null;
@@ -111,7 +112,7 @@ public class ExternalHttpRequestHandler {
 	    UsuarioDTO[] temps = g.fromJson(json, UsuarioDTO[].class);        
 	    return new ArrayList<>(Arrays.asList(temps));
 	}
-	public static ArrayList<SerieDTO> getAllSeries(String url) {
+	public static List<SerieDTO> getAllSeries(String url) {
 	    HttpRequest solicitud = HttpRequest.newBuilder().GET()
 	            .uri(URI.create(url)).build();
 	    HttpResponse<String> respuesta = null;
@@ -143,7 +144,7 @@ public class ExternalHttpRequestHandler {
 	    
 	    return respuesta.statusCode() + "\n" + respuesta.body();
 	}
-	public static ArrayList<PeliculaDTO> getAllPeliculas(String url) {
+	public static List<PeliculaDTO> getAllPeliculas(String url) {
 		HttpRequest solicitud = HttpRequest.newBuilder().GET()
 				.uri(URI.create(url)).build();
 		HttpResponse<String> respuesta = null;

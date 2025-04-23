@@ -1,6 +1,6 @@
 package co.edu.unbosque.model.persistence;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface CRUDOperation <E, D>{
 	
@@ -12,7 +12,7 @@ public interface CRUDOperation <E, D>{
 	
 	public void actualizar(String url, D nuevoDato);
 	
-	public ArrayList<E> findAll(String url);
+	public List<E> findAll(String url);
 	
 	public D buscarUno(int posicion);
 
