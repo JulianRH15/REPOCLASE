@@ -1,6 +1,7 @@
 package co.edu.unbosque.proyecto.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,12 +53,12 @@ public class PeliculaController {
 		}
 	}
 	@GetMapping("/mostrartodo") 
-	public ResponseEntity<ArrayList<PeliculaDTO>> mostrarTodo() {
-		ArrayList<PeliculaDTO > peliculas = peliculaServ.findAll();
+	public ResponseEntity<List<PeliculaDTO>> mostrarTodo() {
+		List<PeliculaDTO > peliculas = peliculaServ.findAll();
 		if(peliculas.isEmpty()) {
-			return new ResponseEntity<ArrayList<PeliculaDTO>>(peliculas, HttpStatus.NO_CONTENT); 
+			return new ResponseEntity<List<PeliculaDTO>>(peliculas, HttpStatus.NO_CONTENT); 
 		}else {
-			return new ResponseEntity<ArrayList<PeliculaDTO>>(peliculas, HttpStatus.ACCEPTED);
+			return new ResponseEntity<List<PeliculaDTO>>(peliculas, HttpStatus.ACCEPTED);
 		}
 	}
 	@DeleteMapping("/eliminarporid/{id}") 

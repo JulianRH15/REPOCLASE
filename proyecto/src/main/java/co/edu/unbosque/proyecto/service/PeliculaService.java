@@ -1,7 +1,7 @@
 package co.edu.unbosque.proyecto.service;
 
 import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -29,9 +29,9 @@ public class PeliculaService {
 		}
 	}
 
-	public ArrayList<PeliculaDTO> findAll() {
-		ArrayList<Pelicula> entityList = (ArrayList<Pelicula>) peliculaRepo.findAll();
-		ArrayList<PeliculaDTO> dtoList = new ArrayList<>();
+	public List<PeliculaDTO> findAll() {
+		List<Pelicula> entityList = (List<Pelicula>) peliculaRepo.findAll();
+		List<PeliculaDTO> dtoList = new ArrayList<>();
 		entityList.forEach((entity) -> {
 			PeliculaDTO dto = modelMapper.map(entity, PeliculaDTO.class);
 			dtoList.add(dto);
